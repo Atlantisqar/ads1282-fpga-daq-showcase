@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>三通道高精度 FPGA 数据采集系统</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --paper: #ffffff;
+      --ink: #172033;
+      --muted: #5c687a;
+      --line: #dce3ee;
+      --blue: #225fc7;
+      --green: #1d7d5a;
+      --orange: #b86313;
+      --soft: #eef4ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Microsoft YaHei", "Segoe UI", Arial, sans-serif;
+      line-height: 1.65;
+    }
+    header {
+      background: #111827;
+      color: #fff;
+      padding: 54px 22px 44px;
+    }
+    .wrap { max-width: 1180px; margin: 0 auto; }
+    .eyebrow {
+      color: #a9c7ff;
+      font-weight: 700;
+      letter-spacing: .04em;
+      margin-bottom: 10px;
+    }
+    h1 { margin: 0 0 14px; font-size: 38px; line-height: 1.18; }
+    h2 { margin: 0 0 18px; font-size: 25px; }
+    h3 { margin: 0 0 8px; font-size: 18px; }
+    p { margin: 0 0 12px; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .lead { max-width: 900px; color: #e2ebff; font-size: 18px; }
+    .notice {
+      max-width: 940px;
+      margin-top: 22px;
+      padding: 13px 15px;
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 8px;
+      color: #dbe6fb;
+      background: rgba(255,255,255,.06);
+    }
+    nav {
+      margin-top: 22px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 999px;
+      padding: 6px 12px;
+      background: rgba(255,255,255,.08);
+    }
+    main { padding: 26px 20px 54px; }
+    section {
+      max-width: 1180px;
+      margin: 18px auto;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--paper);
+    }
+    .grid { display: grid; gap: 16px; }
+    .cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: #fbfcff;
+    }
+    .metric {
+      color: var(--blue);
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .muted { color: var(--muted); }
+    .tag {
+      display: inline-block;
+      margin: 0 6px 8px 0;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .photo {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8fafc;
+      display: block;
+    }
+    .caption {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 8px;
+    }
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      align-items: stretch;
+    }
+    .flow div {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px 10px;
+      text-align: center;
+      background: #f8fbff;
+      font-weight: 700;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #f2f5fa; }
+    ul { padding-left: 20px; margin: 8px 0 0; }
+    li { margin: 4px 0; }
+    footer { color: var(--muted); text-align: center; padding: 24px; }
+    @media (max-width: 880px) {
+      h1 { font-size: 29px; }
+      header { padding: 40px 18px; }
+      main { padding: 18px; }
+      section { padding: 18px; }
+      .cols-2, .cols-3, .flow { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="eyebrow">FPGA DAQ / Board Bring-up / Desktop Tool</div>
+      <h1>三通道高精度 FPGA 数据采集系统</h1>
+      <p class="lead">一个从板级接口、FPGA 实时数据链路、UDP/SD 双路径记录到 PC 软件可视化的完整采集项目。公开展示版聚焦系统能力、工程方法和调试闭环，隐藏可复刻的底层实现细节。</p>
+      <div class="notice">公开展示说明：本页面不包含完整 RTL、完整协议字段、完整状态机、完整引脚表、私有网络参数、原始网表或关键代码片段。</div>
+      <nav>
+        <a href="architecture.md">系统架构</a>
+        <a href="hardware_interview.md">硬件岗版本</a>
+        <a href="fpga_interview.md">FPGA 岗版本</a>
+        <a href="talking_points.md">面试讲解稿</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="grid cols-2">
+        <div>
+          <h2>项目概览</h2>
+          <p>系统以 FPGA 为实时核心，控制三路高精度 ADC 同步采集，将采样结果组织成固定长度数据块，并同时支持局域网 UDP 实时传输和 SD 卡本地记录。PC 桌面软件用于状态观察、参数配置、实时波形、真实 RMS、等效 RMS 噪声、SNR 和数据保存。</p>
+          <p class="muted">这个项目覆盖硬件接口联调、RTL 架构设计、跨时钟域处理、网络链路、SD 存储、桌面软件和上板问题定位。</p>
+        </div>
+        <div>
+          <img class="photo" src="assets/实物图.png" alt="系统实物图">
+          <div class="caption">系统实物展示图</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>项目亮点</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <div class="metric">3 路</div>
+          <h3>同步高精度采集</h3>
+          <p class="muted">FPGA 统一控制三路 ADC，关注同步边界、配置回读和异常上报。</p>
+        </div>
+        <div class="card">
+          <div class="metric">双路径</div>
+          <h3>实时传输 + 本地记录</h3>
+          <p class="muted">UDP 实时链路和 SD 记录链路并行工作，SD 异常不阻塞核心采集。</p>
+        </div>
+        <div class="card">
+          <div class="metric">可视化</div>
+          <h3>桌面软件闭环</h3>
+          <p class="muted">集成状态、参数、波形、噪声、SNR、实时保存和 SD 数据处理。</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>系统数据链路</h2>
+      <div class="flow">
+        <div>三路 ADC</div>
+        <div>FPGA 同步采集</div>
+        <div>数据块组织与缓存</div>
+        <div>UDP / SD 双路径</div>
+        <div>PC 软件分析</div>
+      </div>
+      <p class="muted" style="margin-top:14px;">公开版只展示功能层次，不展示完整数据块字节布局、命令编号和状态字段。</p>
+    </section>
+
+    <section>
+      <h2>硬件形态</h2>
+      <div class="grid cols-3">
+        <div>
+          <img class="photo" src="assets/3D模型图.png" alt="板卡 3D 模型">
+          <div class="caption">板卡 3D 模型</div>
+        </div>
+        <div>
+          <img class="photo" src="assets/两板装配3D图.png" alt="两板装配 3D 示意">
+          <div class="caption">两板装配 3D 示意</div>
+        </div>
+        <div>
+          <img class="photo" src="assets/两板装配实物图%20.jpg" alt="两板装配实物">
+          <div class="caption">两板装配实物</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>PC 软件与测试结果</h2>
+      <div class="grid cols-3">
+        <div>
+          <img class="photo" src="assets/调试软件界面截图.png" alt="桌面调试软件">
+          <div class="caption">桌面软件：状态、波形、噪声、SNR 和保存</div>
+        </div>
+        <div>
+          <img class="photo" src="assets/网络测试图.png" alt="网络联调结果">
+          <div class="caption">网络联调：实时链路状态与数据接收</div>
+        </div>
+        <div>
+          <img class="photo" src="assets/SD卡数据处理.png" alt="SD 数据处理">
+          <div class="caption">SD 数据处理：离线提取和结果保存</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>能力拆解</h2>
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>单板硬件能力</h3>
+          <span class="tag">时钟复位</span>
+          <span class="tag">ADC 接口</span>
+          <span class="tag">以太网 PHY</span>
+          <span class="tag">SD 卡</span>
+          <span class="tag">仪器调试</span>
+          <ul>
+            <li>按电源、复位、时钟、接口、协议分层定位问题。</li>
+            <li>用示波器、抓包和软件状态互相印证。</li>
+            <li>把硬件异常转化为可观察的状态和错误事件。</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>FPGA 工程能力</h3>
+          <span class="tag">RTL 架构</span>
+          <span class="tag">CDC</span>
+          <span class="tag">UDP</span>
+          <span class="tag">缓存</span>
+          <span class="tag">资源优化</span>
+          <ul>
+            <li>采集、缓存、传输、记录和诊断分层设计。</li>
+            <li>跨时钟域用 FIFO 和同步器隔离。</li>
+            <li>在小容量 FPGA 上优化 BRAM 和 FIFO 使用。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>测试与调试闭环</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>问题类型</th>
+            <th>定位方法</th>
+            <th>展示价值</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>网络不通</td>
+            <td>从 PHY 复位、参考时钟、RMII 活动、ARP 到 UDP 应用层逐级排查。</td>
+            <td>体现板级接口和协议分层能力。</td>
+          </tr>
+          <tr>
+            <td>ADC 同步异常</td>
+            <td>结合配置回读、数据就绪、同步信号和软件状态定位。</td>
+            <td>体现高精度采集链路设计能力。</td>
+          </tr>
+          <tr>
+            <td>SD 写入失败</td>
+            <td>区分初始化成功和写入成功，关注写入响应和忙状态释放。</td>
+            <td>体现外设协议调试能力。</td>
+          </tr>
+          <tr>
+            <td>资源接近上限</td>
+            <td>识别 BRAM 瓶颈，优化 FIFO 深度和缓存实现方式。</td>
+            <td>体现工程化取舍能力。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>个人贡献</h2>
+      <ul>
+        <li>梳理板级接口和顶层约束，完成 FPGA 顶层集成。</li>
+        <li>实现三通道 ADC 采集控制、数据组织、网络发送、SD 记录和状态诊断。</li>
+        <li>开发 PC 桌面软件，实现波形显示、参数配置、噪声统计、SNR 和数据保存。</li>
+        <li>通过仿真、综合、示波器、网络抓包和上板长时间测试完成问题定位与迭代。</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    GitHub 公开展示版。完整工程细节、协议字段、引脚约束和私有调试参数未在本页面展开。
+  </footer>
+</body>
+</html>
