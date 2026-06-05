@@ -8,7 +8,7 @@
 
 - [项目展示网页](project_showcase.html)
 - [系统架构说明](architecture.md)
-- [GitHub Pages 展示页](https://atlantisqar.github.io/ads1282-fpga-daq-showcase/)
+- [GitHub Pages 展示页](https://atlantisqar.github.io/ads1282-fpga-daq-showcase/project_showcase.html)
 
 ## 系统实物
 
